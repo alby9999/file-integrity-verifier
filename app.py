@@ -17,48 +17,6 @@ from email.mime.text import MIMEText
 from fpdf import FPDF
 
 # -------------------------------------------------------------
-# APPLICATION OBJECT & WSGI COMPATIBILITY
-# -------------------------------------------------------------
-class WSGIApplication:
-    """
-    WSGI Application object for deployment compatibility (Gunicorn / Render).
-    Serves a status and health-check interface for WSGI servers and automated verifications,
-    while Streamlit powers the interactive web dashboard.
-    """
-    def __init__(self):
-        self.name = "File Integrity Verifier"
-
-    def __call__(self, environ, start_response):
-        status = '200 OK'
-        headers = [('Content-Type', 'text/html; charset=utf-8')]
-        start_response(status, headers)
-        html_content = """<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>File Integrity Verifier</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #f8fafc; padding: 40px; text-align: center; }
-        .container { max-width: 600px; margin: 40px auto; background: #1e293b; padding: 30px; border-radius: 12px; border: 1px solid #334155; }
-        h1 { color: #38bdf8; }
-        code { background: #0f172a; padding: 4px 8px; border-radius: 4px; color: #38bdf8; font-size: 0.9em; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>🛡️ File Integrity Verifier (FIV)</h1>
-        <p>The backend application service is online and healthy.</p>
-        <p>This service features an interactive Streamlit dashboard. On Render, configure the start command as:</p>
-        <p><code>streamlit run app.py --server.port $PORT --server.address 0.0.0.0 --server.headless true</code></p>
-    </div>
-</body>
-</html>"""
-        return [html_content.encode('utf-8')]
-
-# Application object named `app` for WSGI/Gunicorn imports
-app = WSGIApplication()
-
-# -------------------------------------------------------------
 # 1. PAGE & THEME CONFIGURATION
 # -------------------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))

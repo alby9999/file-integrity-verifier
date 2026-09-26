@@ -62,8 +62,9 @@ app = WSGIApplication()
 # 1. PAGE & THEME CONFIGURATION
 # -------------------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-LOGO_ICON = os.path.join(BASE_DIR, "logo_icon.png")
-LOGO_PNG = os.path.join(BASE_DIR, "logo.png")
+ASSETS_DIR = os.path.join(BASE_DIR, "assets")
+LOGO_ICON = os.path.join(ASSETS_DIR, "logo_icon.png") if os.path.exists(os.path.join(ASSETS_DIR, "logo_icon.png")) else os.path.join(BASE_DIR, "logo_icon.png")
+LOGO_PNG = os.path.join(ASSETS_DIR, "logo.png") if os.path.exists(os.path.join(ASSETS_DIR, "logo.png")) else os.path.join(BASE_DIR, "logo.png")
 LOGO_PATH = LOGO_ICON if os.path.exists(LOGO_ICON) else (LOGO_PNG if os.path.exists(LOGO_PNG) else None)
 
 st.set_page_config(
